@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!---- might have to stick type in -->
+    <script src="../static/app.js"></script>
+    <title>Films</title></head>
+<body>
+  {% extends 'base.html' %}
+
+  {% block content %}
+  <!-- Header -->
+  <h2>Films Page</h2>
+
+  <!-- Table -->
+  <table>
+    <tr>
+      {% for column in data['columns'] %}
+      <th>{{ column }}</th>
+      {% endfor %}
+    </tr>
+    {% for film in data['films'] %}
+    <tr>
+      <td>{{ film['title'] }}</td>
+      <td>{{ film['yearReleased'] }}</td>
+      <td>{{ film['rating'] }}</td>
+      <td>{{ film['duration'] }}</td>
+      <td>{{ film['genre'] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endblock %}
+</body>
+</html>

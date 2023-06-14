@@ -5,22 +5,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> might have to stick type in 
-    <title>JSON Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!---- might have to stick type in -->
+    <script src="../static/app.js"></script>
+    <title>FilmFlix</title>
+
+<!--    Add Javascript -->
 </head>
 
 <body>
-    <header></header>
-    {% block content %}
-    
-    {% if user.name = 'admin' %}
-    <a href="{{ url_for('base') }}"></a>
-    {% else if condition %}
-    {% else  %}
-    {% endif %}
-
-    {% endblock %}
-    <footer></footer>
+    <h1>FilmFlix</h1>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index_page') }}">Home</a></li>
+            <li><a href="{{ url_for('post_films') }}">Films</a></li>
+        </ul>
+    </nav>
+    <div>
+        {% block content %}
+            <h2>Home Page</h2>
+        {% endblock %}
+    </div>
 </body>
-
 </html>

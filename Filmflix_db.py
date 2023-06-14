@@ -31,46 +31,77 @@ class Filmflix_db:
     def print_all_films(self):
         for film in self.get_all_films():
             print(film)
+
+    # def get_films_by_x(self, genre=None, yearReleased=None, rating=None, title=None):
+    #     sql = "SELECT * FROM tblFilms"
+    #     filters = ''
+
+    #     if genre:
+    #         filters += f' AND genre = {genre}'
+
+    #     if yearReleased:
+    #         filters += f' AND yearReleased = {yearReleased}'
+
+    #     if rating:
+    #         filters += f' AND rating = {rating}'
+
+    #     if title:
+    #        filters += f' AND title = {title}'
+           
+    #     if filters:
+    #         sql += ' WHERE '
+    #         sql += filters
             
+    #     self.cursor.execute(sql)
+    #     return self.cursor.fetchall()
+        
+    def get_films_by_x(self, genre=None, yearReleased=None, rating=None, title=None, duration=None):
+        sql = "SELECT * FROM tblFilms WHERE 1=1"
+        values = []
+
+        if genre:
+            sql += ' AND genre = ?'
+            values.append(genre)
+
+        if yearReleased:
+            sql += ' AND yearReleased = ?'
+            values.append(yearReleased)
+
+        if rating:
+            sql += ' AND rating = ?'
+            values.append(rating)
+
+        if title:
+            sql += ' AND title = ?'
+            values.append(title)
+
+        if duration:
+            sql += ' AND duration = ?'
+            values.append(duration)
+
+        self.cursor.execute(sql, values)
+        return self.cursor.fetchall()
+
+    
     def print_films_by_genre(self, genre):
-        sql = "SELECT * FROM tblFilms WHERE genre = ?"
-        self.cursor.execute(sql, (genre,))
-        films = self.cursor.fetchall()
+        films = self.get_films_by_x(genre=genre)
         for film in films:
             print(film)
-
-    def print_films_by_year(self, year):
-        sql = "SELECT * FROM tblFilms WHERE yearReleased = ?"
-        self.cursor.execute(sql, (year,))
-        films = self.cursor.fetchall()
+            
+    def print_films_by_year(self, yearReleased):
+        films = self.get_films_by_x(yearReleased=yearReleased)
         for film in films:
             print(film)
-
+            
     def print_films_by_rating(self, rating):
-        sql = "SELECT * FROM tblFilms WHERE rating = ?"
-        self.cursor.execute(sql, (rating,))
-        films = self.cursor.fetchall()
-        for film in films:
-            print(film)
-
-    def print_films_by_rating_hugo(self, rating):
         films = self.get_films_by_x(rating=rating)
         for film in films:
             print(film)
-
-    def get_films_by_x(self, genre=None, year=None, rating=None):
-        sql = "SELECT * FROM tblFilms"
-        filters = ''
-
-        if genre:
-            filters += f' AND genre = {genre}'
-
-        if filters:
-            sql += ' WHERE '
-            sql += filters
-
-        self.cursor.execute(sql)
-        return self.cursor.fetchall()
+            
+    def print_films_by_title(self, title):
+        films = self.get_films_by_x(title=title)
+        for film in films:
+            print(film)  
 
     def exit_db(self):
         self.cursor.close()
@@ -80,17 +111,23 @@ class Filmflix_db:
 def get_menu_number(num):
     i = input(num)   
     while not i.isnumeric() or int(i) <= 0 or int(i) >= 7:
-        print('Please pick one of the options.')
+        print('Please choose a valid number')
         i = input(num)
     return int(i)    
        
+def get_sub_menu_number(num):
+    i = input(num)   
+    while not i.isnumeric() or int(i) <= 0 or int(i) >= 5:
+        print('Please choose a valid number')
+        i = input(num)
+    return int(i)   
 
 
 def text_input():
     films = Filmflix_db()
     menu = get_menu_number('Please Enter: \n 1 for Add Film \n 2 for Delete Film 3 for Update Film \n 4 for Show All \n 5 for Reports \n 6 to Exit \n> ')
 
-    while menu != 6:
+    while menu != 6 :
         if menu == 1:
             title = input('Title: ')
             yearReleased = input('Year Released: ')
@@ -113,10 +150,28 @@ def text_input():
             films.print_all_films()
     
         if menu == 5:
-            sub_menu = get_menu_number('Please Enter: \n 1 for Add Film \n 2 for Delete Film 3 for Update Film \n 4 for Show All \n 5 for Reports \n 6 to Exit \n> ')
-            print('Not yet implemented')
+            sub_menu = get_sub_menu_number('Please Enter: \n 1 for Show by Rating \n 2 for Show by Year \n 3 for Show by Genre \n 4 Show by Title \n > ')
+            if sub_menu == 1:
+                 rating = input('R or PG?: ')
+                 films.print_films_by_rating(rating)
+            if sub_menu == 2:
+                yearReleased = input('Which Year?: ')
+                films.print_films_by_year(yearReleased)
+            if sub_menu == 3:
+                genre = input('Genre?: ')
+                films.print_films_by_genre(genre)
+            if sub_menu == 4:
+                title = input('Title?: ')
+                films.print_films_by_title(title)
             
-        menu = get_menu_number('Please Enter: \n 1 for Add Film \n 2 for Delete Film 3 for Update Film \n 4 for Show All \n 5 for Reports \n 6 to Exit \n> ')
+            menu = get_menu_number('Please Enter: \n 1 for Add Film \n 2 for Delete Film 3 for Update Film \n 4 for Show All \n 5 for Reports \n 6 to Exit \n> ')        
+            
+    if menu == 6:
+        films.exit_db()
+        
 
 if __name__ == '__main__':
+    # db = Filmflix_db()
+    # print(db.get_films_by_x(genre='test'))
+
     text_input()
