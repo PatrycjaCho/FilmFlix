@@ -49,8 +49,8 @@ class Filmflix_db:
             values.append(rating)
 
         if title:
-            sql += ' AND title = ?'
-            values.append(title)
+            sql += ' AND title LIKE ?'
+            values.append('%' + title + '%')
 
         if duration:
             sql += ' AND duration = ?'
@@ -59,24 +59,37 @@ class Filmflix_db:
         self.cursor.execute(sql, values)
         return self.cursor.fetchall()
 
+
+    def get_films_by_genre(self, genre):
+        return self.get_films_by_x(genre=genre)
+
+
     def print_films_by_genre(self, genre):
         films = self.get_films_by_x(genre=genre)
         for film in films:
             print(film)
-            
+
+    def get_films_by_yearReleased(self, yearReleased):
+        return self.get_films_by_x(yearReleased=yearReleased)
+
     def print_films_by_year(self, yearReleased):
         films = self.get_films_by_x(yearReleased=yearReleased)
         for film in films:
             print(film)
-            
+
+    def get_films_by_rating(self, rating):
+        return self.get_films_by_x(rating=rating)
+
     def print_films_by_rating(self, rating):
         films = self.get_films_by_x(rating=rating)
         for film in films:
             print(film)
-            
+
+    def get_films_by_title(self, title):
+        return self.get_films_by_x(title=title)
+
     def print_films_by_title(self, title):
-        films = self.get_films_by_x(title=title)
-        for film in films:
+        for film in self.get_films_by_title(title):
             print(film)
 
     def check_film_exists(self, filmID):

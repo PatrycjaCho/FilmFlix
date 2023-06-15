@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% block title %}Amend Film{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+
+    <h2>Amend Film</h2>
+    <form action="/AmendFilm" method="POST">
+        <label for="filmID">Film ID:</label>
+        <input type="text" name="filmID" id="filmID" required>
+
+        <label for="column_name">What would you like to change?</label>
+        <select id="column_name" name="column_name">
+          <option value="title">Title</option>
+          <option value="yearReleased">Year Released</option>
+          <option value="rating">Rating</option>
+          <option value="duration">Duration</option>
+          <option value="genre">Genre</option>
+        </select>
+
+        <label for="new_value">New Value:</label>
+        <input type="text" name="new_value" id="new_value" required>
+
+        <button type="submit">Amend Film</button>
+    </form>
+
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+    {% if success %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+
+{% endblock %}
+</html>
