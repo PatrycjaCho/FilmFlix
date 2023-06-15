@@ -2,7 +2,7 @@ import sqlite3 as sql
 
 class Filmflix_db:
     def __init__(self):
-        self.con = sql.connect('C:\\Users\\lisac\\Desktop\\Python Project\\FilmFlix\\filmflix.db')
+        self.con = sql.connect('C:\\Users\\lisac\\Documents\\GitHub\\FilmFlix\\filmflix.db')
         self.cursor = self.con.cursor()
 
     def add_film(self, title, yearReleased, rating, duration, genre):
@@ -32,29 +32,6 @@ class Filmflix_db:
         for film in self.get_all_films():
             print(film)
 
-    # def get_films_by_x(self, genre=None, yearReleased=None, rating=None, title=None):
-    #     sql = "SELECT * FROM tblFilms"
-    #     filters = ''
-
-    #     if genre:
-    #         filters += f' AND genre = {genre}'
-
-    #     if yearReleased:
-    #         filters += f' AND yearReleased = {yearReleased}'
-
-    #     if rating:
-    #         filters += f' AND rating = {rating}'
-
-    #     if title:
-    #        filters += f' AND title = {title}'
-           
-    #     if filters:
-    #         sql += ' WHERE '
-    #         sql += filters
-            
-    #     self.cursor.execute(sql)
-    #     return self.cursor.fetchall()
-        
     def get_films_by_x(self, genre=None, yearReleased=None, rating=None, title=None, duration=None):
         sql = "SELECT * FROM tblFilms WHERE 1=1"
         values = []
@@ -82,7 +59,6 @@ class Filmflix_db:
         self.cursor.execute(sql, values)
         return self.cursor.fetchall()
 
-    
     def print_films_by_genre(self, genre):
         films = self.get_films_by_x(genre=genre)
         for film in films:
@@ -101,7 +77,13 @@ class Filmflix_db:
     def print_films_by_title(self, title):
         films = self.get_films_by_x(title=title)
         for film in films:
-            print(film)  
+            print(film)
+
+    def check_film_exists(self, filmID):
+        sql = "SELECT COUNT(*) FROM tblFilms WHERE filmID = ?"
+        self.cursor.execute(sql, (filmID,))
+        count = self.cursor.fetchone()[0]
+        return count > 0
 
     def exit_db(self):
         self.cursor.close()
@@ -170,8 +152,9 @@ def text_input():
         films.exit_db()
         
 
-if __name__ == '__main__':
-    # db = Filmflix_db()
-    # print(db.get_films_by_x(genre='test'))
+# if __name__ == '__main__':
+#     db = Filmflix_db()
+#     print(db.get_all_films())
+#
+#     text_input()
 
-    text_input()

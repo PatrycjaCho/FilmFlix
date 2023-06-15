@@ -2,28 +2,34 @@
 <html lang="en">
 
 <head>
+    {% block head %}
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!---- might have to stick type in -->
-    <script src="../static/app.js"></script>
-    <title>FilmFlix</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <title>{% block title %}{% endblock %} FilmFlix</title>
 
-<!--    Add Javascript -->
+    {% endblock %}
 </head>
 
-<body>
-    <h1>FilmFlix</h1>
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('index_page') }}">Home</a></li>
-            <li><a href="{{ url_for('post_films') }}">Films</a></li>
-        </ul>
-    </nav>
-    <div>
-        {% block content %}
-            <h2>Home Page</h2>
-        {% endblock %}
-    </div>
-</body>
+  <body>
+      <header>
+          {% block header %}
+          <h1>FilmFlix</h1>
+            <nav>
+                <a href="{{ url_for('all_films') }}">Films</a>
+                <a href="{{ url_for('add_film') }}">Add Film</a>
+                <a href="{{ url_for('delete_film') }}">Delete Film</a>
+            </nav>
+          {% endblock %}
+      </header>
+      <div>{% block content %}{% endblock %}</div>
+      <footer>
+          {% block footer %}
+          <p>Patrycja Chomiak</p>
+          {% endblock %}
+      </footer>
+  </body>
 </html>

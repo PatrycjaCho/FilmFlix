@@ -5,67 +5,63 @@ from Filmflix_db import Filmflix_db
 app = Flask(__name__)
 
 
-# @app.route('/hello/')
-# def index():
-#   return 'Whatever'
-
-# @app.run(host=
-
-
-# @app.get('/')
-# def index_page():
-#     return render_template("base.html")
-#
-#
-# @app.post('/films')
-# def post_films():
-#     films = Filmflix_db().get_all_films()
-#     columns = 'title', 'yearReleased', 'rating', 'duration', 'genre'
-#     data = {'columns': columns, 'films': films}
-#     return render_template('Films.html', data=data)
-
-@app.route('/')
+@app.get('/')
 def index_page():
     return render_template("base.html")
 
-@app.route('/films', methods=['POST'])
-def post_films():
+
+@app.get('/films')
+def all_films():
     films = Filmflix_db().get_all_films()
-    columns = ['title', 'yearReleased', 'rating', 'duration', 'genre']
+    columns = ['filmID', 'title', 'yearReleased', 'rating', 'duration', 'genre']
     data = {'columns': columns, 'films': films}
     return render_template('films.html', data=data)
 
 
-@app.post('/AddFilm')
+from flask import render_template
+
+# ...
+
+@app.route('/AddFilm', methods=['GET', 'POST'])
 def add_film():
     film_db = Filmflix_db()
 
-    data = request.json
-    columns = 'title', 'yearReleased', 'rating', 'duration', 'genre'
+    if request.method == 'POST':
+        columns = ['title', 'yearReleased', 'rating', 'duration', 'genre']
+        for column in columns:
+            if column not in request.form:
+                error_message = f'Mandatory field {column} not present in request to "add_film"'
+                return render_template("addfilm.html", error=error_message)
 
-    for key in columns:
-        if not data.get(key):
-            return {'Success': False, 'Error': f'Mandatory field {key} not present in request to "add_film"'}
+        existing_films = film_db.get_films_by_x(title=request.form['title'], yearReleased=request.form['yearReleased'], rating=request.form['rating'], duration=request.form['duration'], genre=request.form['genre'])
+        if existing_films:
+            error_message = 'Film already exists'
+            return render_template("addfilm.html", error=error_message)
 
-    existing_films = film_db.get_films_by_x(title=data['title'], yearReleased=data['yearReleased'], rating=data['rating'], duration=data['duration'], genre=data['genre'])
-    if existing_films:
-        return {'Success': False, 'Error': 'Film already exists'}
+        film_db.add_film(request.form['title'], request.form['yearReleased'], request.form['rating'], request.form['duration'], request.form['genre'])
+        return render_template("addfilm.html", success=True)
 
-    film_db.add_film(data['title'], data['yearReleased'], data['rating'], data['duration'], data['genre'])
-    return {'Success': True}
+    return render_template("addfilm.html")
 
 
-@app.post('/DeleteFilm')
+@app.route('/DeleteFilm', methods=['GET', 'POST'])
 def delete_film():
     film_db = Filmflix_db()
 
-    data = request.json
+    if request.method == 'POST':
+        film_id = request.form.get('filmID')
+        if not film_id:
+            error_message = 'Mandatory field filmID not present in request to "delete_film"'
+            return render_template("deletefilm.html", error=error_message)
 
-    if not data.get('filmID'):
-        return 'Mandatory field filmID not present in request to "delete_film"'
+        if not film_db.check_film_exists(film_id):
+            error_message = 'Invalid film ID'
+            return render_template("deletefilm.html", error=error_message)
 
-    film_db.delete_film(data['filmID'])
-    return 'Success'
+        film_db.delete_film(film_id)
+        return render_template("deletefilm.html", success=True)
+
+    return render_template("deletefilm.html")
 
 
 @app.post('/AmendFilm')
@@ -84,10 +80,6 @@ def amend_film():
 
 
 # @app.post('/')
-
-
-if __name__ == '__main__':
-    app.run()
 
     # Once Run - in Python Console / Javascript do the equivalent of:
 
@@ -119,3 +111,6 @@ if __name__ == '__main__':
     # For reports:
 
     # request: { 'rating': 5, 'genre': 'horror' }
+if __name__ == '__main__':
+    app.run()
+

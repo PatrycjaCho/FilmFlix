@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% block title %}Films{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+    <h2>Delete Film</h2>
+     <form action="/DeleteFilm" method="POST">
+            <label for="filmID">Film ID:</label>
+            <input type="text" name="filmID" id="filmID" required>
+            <button type="submit">Delete Film</button>
+
+     </form>
+
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+    {% if success %}
+        <p>Successfully deleted</p>
+    {% endif %}
+{% endblock %}
+
+</html>
