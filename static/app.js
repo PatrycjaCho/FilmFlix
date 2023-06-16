@@ -1,9 +1,6 @@
-//console.log('hello');
-//
-//function post_to_flask() {
-//    await fetch() {
-//
-//    }
-//}
-
-console.log('hello stinky')
+window.onload = function() {
+    let logo = document.getElementById('logo')
+    logo.addEventListener('click', () => {
+        window.location.href = '/films';
+    });
+}

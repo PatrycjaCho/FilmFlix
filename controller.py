@@ -13,7 +13,7 @@ def index_page():
 @app.get('/films')
 def all_films():
     films = Filmflix_db().get_all_films()
-    columns = ['filmID', 'title', 'yearReleased', 'rating', 'duration', 'genre']
+    columns = ['FILM ID', 'TITLE', 'YEAR RELEASED', 'RATING', 'DURATION', 'GENRE']
     data = {'columns': columns, 'films': films}
     return render_template('films.html', data=data)
 

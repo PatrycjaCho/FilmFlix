@@ -7,7 +7,8 @@
 {% endblock %}
 
 {% block content %}
-  <h2>Films Page</h2>
+  <h2>ALL FILMS</h2>
+    <div class="content">
     <table>
         <tr>
             {% for column in data['columns'] %}
@@ -22,5 +23,7 @@
             </tr>
         {% endfor %}
     </table>
+    </div>
+</div>
 {% endblock %}
 </html>

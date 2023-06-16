@@ -15,23 +15,30 @@
 </head>
 
   <body>
-      <header>
+      <header class="header">
+        <div class="container">
           {% block header %}
-          <h1>FilmFlix</h1>
+          <h1 id="logo">FilmFlix</h1>
             <nav>
-                <a href="{{ url_for('all_films') }}">Films</a>
-                <a href="{{ url_for('add_film') }}">Add Film</a>
-                <a href="{{ url_for('delete_film') }}">Delete Film</a>
-                <a href="{{ url_for('amend_film') }}">Amend Film</a>
-                <a href="{{ url_for('display_films_by_x') }}"> Reports</a>
+                <a href="{{ url_for('all_films') }}">FILMS</a>
+                <a href="{{ url_for('add_film') }}">ADD FILM</a>
+                <a href="{{ url_for('delete_film') }}">DELETE FILM</a>
+                <a href="{{ url_for('amend_film') }}">AMEND FILM</a>
+                <a href="{{ url_for('display_films_by_x') }}"> SEARCH</a>
             </nav>
+        </div>
           {% endblock %}
       </header>
-      <div>{% block content %}{% endblock %}</div>
-      <footer>
+            <div class="content">
+                {% block content %}{% endblock %}
+            </div>
+        
+      <footer class="footer">
+        <div class="container">
           {% block footer %}
-          <p>Patrycja Chomiak</p>
+          <p>@2023 || Patrycja Chomiak</p>
           {% endblock %}
+          </div>
       </footer>
   </body>
 </html>
