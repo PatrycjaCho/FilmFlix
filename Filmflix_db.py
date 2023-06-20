@@ -2,7 +2,7 @@ import sqlite3 as sql
 
 class Filmflix_db:
     def __init__(self):
-        self.con = sql.connect('C:\\Users\\lisac\\Documents\\GitHub\\FilmFlix\\filmflix.db')
+        self.con = sql.connect('filmflix.db')
         self.cursor = self.con.cursor()
 
     def add_film(self, title, yearReleased, rating, duration, genre):
