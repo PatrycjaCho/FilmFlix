@@ -3,41 +3,49 @@
 {% extends "base.html" %}
 {% block title %}Film Reports {% endblock %}
 {% block head %}
-  {{ super() }}
+{{ super() }}
 {% endblock %}
 
 {% block content %}
-    <h2>Reports</h2>
-    <form action="/reports" method="POST">
-            <label for="column_report">Filter by: </label>
-            <select id="column_report" name="column_report">
-              <option value="title">Title</option>
-              <option value="yearReleased">Year Released</option>
-              <option value="rating">Rating</option>
-              <option value="duration">Duration</option>
-              <option value="genre">Genre</option>
-            </select>
-            <label for="find_values">Search: </label>
-            <input type="text" name="find_values" id="find_values" required>
-        <button type="submit" value="Submit">Search</button>
 
-    </form>
+<h2>Reports</h2>
 
-    <table>
-        {% if data %}
-        <tr>
-            {% for column in data['columns'] %}
-                <th>{{ column }}</th>
-            {% endfor %}
-        </tr>
-        {% for film in data['films'] %}
-            <tr>
-                {% for item in film %}
-                    <td>{{ item }}</td>
-                {% endfor %}
-            </tr>
+<form action="/reports" method="POST">
+
+    <label for="column_report">Filter by: </label>
+    <select id="column_report" name="column_report">
+        <option value="title">Title</option>
+        <option value="yearReleased">Year Released</option>
+        <option value="rating">Rating</option>
+        <option value="duration">Duration</option>
+        <option value="genre">Genre</option>
+    </select>
+
+    <label for="find_values">Search: </label>
+    <input type="text" name="find_values" id="find_values" required>
+
+    <button type="submit" value="Submit">Search</button>
+
+</form>
+
+<table>
+
+    {% if data %}
+    <tr>
+        {% for column in data['columns'] %}
+        <th>{{ column }}</th>
         {% endfor %}
-        {% endif %}
-    </table>
+    </tr>
+    {% for film in data['films'] %}
+    <tr>
+        {% for item in film %}
+        <td>{{ item }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    {% endif %}
+
+</table>
 {% endblock %}
+
 </html>

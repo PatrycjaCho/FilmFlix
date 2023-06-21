@@ -166,8 +166,5 @@ def text_input():
         
 
 # if __name__ == '__main__':
-#     db = Filmflix_db()
-#     print(db.get_all_films())
-#
 #     text_input()
 

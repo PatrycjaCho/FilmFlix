@@ -2,46 +2,47 @@
 <html lang="en">
 
 <head>
-    {% block head %}
+  {% block head %}
 
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="{{ url_for('static', filename='app.js') }}"></script>
-    <title>{% block title %}{% endblock %} FilmFlix</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+  <title>{% block title %}{% endblock %} FilmFlix</title>
 
-    {% endblock %}
+  {% endblock %}
 </head>
 
-  <body>
-      <header class="header">
-        <div class="container">
-          {% block header %}
-          <h1 id="logo">FilmFlix</h1>
-            <nav>
-                <a href="{{ url_for('all_films') }}">FILMS</a>
-                <a href="{{ url_for('add_film') }}">ADD FILM</a>
-                <a href="{{ url_for('delete_film') }}">DELETE FILM</a>
-                <a href="{{ url_for('amend_film') }}">AMEND FILM</a>
-                <a href="{{ url_for('display_films_by_x') }}"> SEARCH</a>
-            </nav>
-        </div>
-          {% endblock %}
-      </header>
-            <div class="content">
-                {% block content %}
-                <h2>Welcome</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia cum magnam excepturi nostrum placeat in architecto nisi consequuntur numquam sit quasi minima, accusantium accusamus eaque, nihil iusto? Voluptatem, eaque accusamus.</p>
-                {% endblock %}
-            </div>
-        
-      <footer class="footer">
-        <div class="container">
-          {% block footer %}
-          <p>@2023 || Patrycja Chomiak</p>
-          {% endblock %}
-          </div>
-      </footer>
-  </body>
+<body>
+  <header class="header">
+    <div class="container">
+      {% block header %}
+      <h1 id="logo">FilmFlix</h1>
+      <nav>
+        <a href="{{ url_for('all_films') }}">FILMS</a>
+        <a href="{{ url_for('add_film') }}">ADD FILM</a>
+        <a href="{{ url_for('delete_film') }}">DELETE FILM</a>
+        <a href="{{ url_for('amend_film') }}">AMEND FILM</a>
+        <a href="{{ url_for('display_films_by_x') }}"> SEARCH</a>
+      </nav>
+    </div>
+    {% endblock %}
+  </header>
+  <div class="content">
+    {% block content %}
+    <h2>Welcome to filmflix</h2>
+    <p>A small movie database</p>
+    {% endblock %}
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      {% block footer %}
+      <p>@2023 || Patrycja Chomiak</p>
+      {% endblock %}
+    </div>
+  </footer>
+</body>
+
 </html>

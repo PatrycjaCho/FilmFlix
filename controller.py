@@ -97,37 +97,5 @@ def display_films_by_x():
     return render_template('reports.html', data=None)
 
 
-# @app.post('/')
-
-# Once Run - in Python Console / Javascript do the equivalent of:
-
-# For all films
-# import requests
-# r = requests.post('http://127.0.0.1:5000/Films', headers={'Content-type': 'application/json'})
-# print(r.json())
-#
-# res = r.json()  # { columns: [], films: [ [ id, ... ] ] }
-#
-# title, yearReleased, rating, duration, genre = 'Hello', 2002, '1', 5, 'Testing'
-# to_delete = {'title': title, 'yearReleased': yearReleased, 'rating': rating, 'duration': duration, 'genre': genre}
-# to_delete_id = None
-#
-# for film in res['films']:
-#     film_id, to_compare = film[0], film[1:]
-#     if to_compare == [title, yearReleased, rating, duration, genre]:
-#         to_delete_id = film_id
-#
-# print(to_delete_id)
-
-# To add film
-# import requests
-# r = requests.post('http://127.0.0.1:5000/AddFilm', json={'title': 'Hello', 'yearReleased': 2002, 'rating': 1, 'duration': 5, 'genre': 'Testing'}, headers={'Content-type': 'application/json'})
-
-# r = requests.post('http://127.0.0.1:5000/DeleteFilm', json={'filmID': to_delete_id}, headers={'Content-type': 'application/json'})
-# a = 1
-
-# For reports:
-
-# request: { 'rating': 5, 'genre': 'horror' }
 if __name__ == '__main__':
     app.run()
