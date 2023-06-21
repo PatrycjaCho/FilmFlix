@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% block title %}Films{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+  <h2>ALL FILMS</h2>
+    <div class="content">
+    <table>
+        <tr>
+            {% for column in data['columns'] %}
+                <th>{{ column }}</th>
+            {% endfor %}
+        </tr>
+        {% for film in data['films'] %}
+            <tr>
+                {% for item in film %}
+                    <td>{{ item }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+{% endblock %}
+</html>
