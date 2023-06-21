@@ -2,7 +2,7 @@ from flask import Flask, request, render_template
 
 from Filmflix_db import Filmflix_db
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 
 @app.get('/')
