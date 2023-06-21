@@ -12,10 +12,10 @@ def index_page():
 
 @app.route('/films')
 def all_films():
-    films = Filmflix_db().get_all_films()
-    columns = ['FILM ID', 'TITLE', 'YEAR RELEASED', 'RATING', 'DURATION', 'GENRE']
-    data = {'columns': columns, 'films': films}
-    return render_template('films.html', data=data)
+   # films = Filmflix_db().get_all_films()
+   # columns = ['FILM ID', 'TITLE', 'YEAR RELEASED', 'RATING', 'DURATION', 'GENRE']
+    #data = {'columns': columns, 'films': films}
+    return render_template('films.html') # data=data
 
 
 @app.route('/AddFilm', methods=['GET', 'POST'])
